@@ -33,3 +33,10 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Signing material never belongs in the repository
+keystore.properties
+
+# IDEs and OS
+.vscode/
+.DS_Store

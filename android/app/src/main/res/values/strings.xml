@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Open Kiosk</string>
+    <string name="setup_title">Dashboard URL</string>
+    <string name="setup_hint">http://homeassistant.local:8123/</string>
+    <string name="setup_save">Start kiosk</string>
+    <string name="setup_invalid">Enter a full http:// or https:// address</string>
+</resources>
