@@ -2,6 +2,8 @@
 
 **A free, open-source kiosk browser for Android wall panels and smart-home dashboards.**
 
+🌐 [open-kiosk.shoshins.com](https://open-kiosk.shoshins.com)
+
 Open Kiosk turns an Android device into a single-purpose, always-on display for
 Home Assistant or any web dashboard. No paid unlock, no cloud account, no
 analytics, and no root.
