@@ -14,7 +14,7 @@ Build a free, self-hostable, open-source alternative to Fully Kiosk Browser PLUS
 - Run reliably as an unattended device, recovering from network and WebView failures.
 - Optionally manage a fleet of panels from a self-hosted management server.
 
-**Non-goals:** custom Android firmware; bypassing OS security or device-management policies; creating a new smart-home automation engine; obtaining protected HomeKit Secure Video streams; guaranteeing support for vendor-specific hardware without reverse engineering.
+**Non-goals:** presence detection with the device's own camera (Home Assistant motion sensors over MQTT or REST cover it, without camera access); a self-hosted fleet management server and in-app OTA updates (REST and MQTT already provide remote control, and signed releases ship through GitHub Releases); custom Android firmware; bypassing OS security or device-management policies; creating a new smart-home automation engine; obtaining protected HomeKit Secure Video streams; guaranteeing support for vendor-specific hardware without reverse engineering.
 
 ## 2. Technical decisions
 

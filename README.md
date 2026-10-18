@@ -15,10 +15,6 @@ Open Kiosk turns an Android device into a single-purpose, always-on display for
 Home Assistant or any web dashboard. No paid unlock, no cloud account, no
 analytics, and no root.
 
-> **Status: early development.** Everything marked ✅ below is implemented
-> and unit-tested; validation on real hardware (KSK-010) is in progress.
-> Feedback and contributions are very welcome.
-
 ---
 
 ## Why
@@ -35,27 +31,25 @@ door. Open Kiosk is built around two priorities:
 
 ## Features
 
-| | Feature | Status |
-|---|---|---|
-| 🖥 | Fullscreen, immersive WebView with your start URL | ✅ |
-| 🔒 | Navigation locked to the dashboard's origin | ✅ |
-| ♻️ | Auto-recovery: network return, load retries with backoff, renderer crash rebuild | ✅ |
-| ⚡ | Starts on boot (Android 8.1–9) or as the Home app | ✅ |
-| 🔑 | PIN-protected settings with brute-force throttling | ✅ |
-| ☀️ | Brightness and keep-awake | ✅ |
-| 🌐 | Authenticated local [REST API](docs/api.md), off by default | ✅ |
-| 📡 | [MQTT](docs/mqtt.md) with Home Assistant discovery | ✅ |
-| 🧩 | Origin-checked [JavaScript bridge](docs/bridge.md), off by default | ✅ |
-| 🌙 | Screensaver: clock, black, dim or URL, on idle or on command | ✅ |
-| 👋 | Wake from Home Assistant motion sensors over MQTT or REST | ✅ |
-| 🗣 | Text-to-speech | ✅ |
-| 🚀 | Allowlisted app launcher | ✅ |
-| 🟠 | F6 round secondary screen | ✅ |
-| 📊 | Telemetry: memory, storage, network, battery, uptime | ✅ |
-| 📷 | Presence from the device's own camera | 📋 |
-| 🗂 | Self-hosted fleet manager and signed OTA updates | 📋 |
+| | Feature |
+|---|---|
+| 🖥 | Fullscreen, immersive WebView with your start URL |
+| 🔒 | Navigation locked to the dashboard's origin |
+| ♻️ | Auto-recovery: network return, load retries with backoff, renderer crash rebuild |
+| ⚡ | Starts on boot (Android 8.1–9) or as the Home app |
+| 🔑 | PIN-protected settings with brute-force throttling |
+| ☀️ | Brightness and keep-awake |
+| 🌐 | Authenticated local [REST API](docs/api.md), off by default |
+| 📡 | [MQTT](docs/mqtt.md) with Home Assistant discovery |
+| 🧩 | Origin-checked [JavaScript bridge](docs/bridge.md), off by default |
+| 🌙 | Screensaver: clock, black, dim or URL, on idle or on command |
+| 👋 | Wake from Home Assistant motion sensors over MQTT or REST |
+| 🗣 | Text-to-speech |
+| 🚀 | Allowlisted app launcher |
+| 🟠 | F6 round secondary screen |
+| 📊 | Telemetry: memory, storage, network, battery, uptime |
 
-✅ implemented · 📋 planned. See the [full specification](docs/spec.md).
+See the [full specification](docs/spec.md).
 
 ## Quick start
 
@@ -126,15 +120,14 @@ Tested another panel? Please add it to the compatibility list with a pull reques
 
 ## Roadmap
 
-| Release | Theme |
-|---|---|
-| v0.1 | Functional kiosk: fullscreen, boot, PIN, brightness, recovery |
-| v0.2 | Connected kiosk: REST, MQTT, JavaScript bridge, TTS, app launcher |
-| v0.3 | Smart kiosk: screensaver, presence, schedules |
-| v0.4 | Managed kiosk: self-hosted manager, signed updates |
-| v1.0 | Extensible platform: plugin interfaces, security audit, soak tests |
+- Validation on more wall panels, and hardware adapters for their knobs and
+  secondary screens.
+- Optional device-owner Lock Task provisioning for a fully locked-down kiosk.
 
-The detailed backlog is in [docs/spec.md](docs/spec.md#8-product-backlog).
+Out of scope: presence detection with the device's own camera (Home
+Assistant motion sensors cover it without camera access), and a fleet
+management server (REST and MQTT already give remote control, and releases
+ship through GitHub).
 
 ## Repository layout
 
