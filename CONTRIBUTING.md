@@ -37,8 +37,7 @@ Maintainers: see [RELEASING.md](RELEASING.md) for signing and publishing.
 ## Pull requests
 
 1. Open an issue first for anything larger than a bug fix.
-2. Keep pull requests small and focused, and reference the backlog ID
-   (for example `KSK-006`) when there is one.
+2. Keep pull requests small and focused.
 3. Add or update tests. CI must be green.
 4. Update `CHANGELOG.md` and the docs when behavior changes.
 5. Describe how you tested, including the Android version and device.

@@ -1,9 +1,5 @@
 ## What and why
 
-## Backlog item
-
-KSK-
-
 ## How it was tested
 
 - Device / emulator and Android version:

@@ -49,7 +49,6 @@ door. Open Kiosk is built around two priorities:
 | 🟠 | F6 round secondary screen |
 | 📊 | Telemetry: memory, storage, network, battery, uptime |
 
-See the [full specification](docs/spec.md).
 
 ## Quick start
 
@@ -104,9 +103,6 @@ opening a public issue.
 - REST and MQTT are implemented directly on sockets: no HTTP or MQTT
   libraries, hard limits on every input.
 
-Targets for the reference device are in [the spec](docs/spec.md#6-non-functional-requirements):
-APK under 15 MB, cold start under 5 seconds, 72-hour unattended soak.
-
 ## Hardware support
 
 Open Kiosk aims to run on any Android 8.1+ device. Vendor-specific hardware
@@ -118,22 +114,11 @@ gets **experimental** adapters, isolated from the core:
 
 Tested another panel? Please add it to the compatibility list with a pull request.
 
-## Roadmap
-
-- Validation on more wall panels, and hardware adapters for their knobs and
-  secondary screens.
-- Optional device-owner Lock Task provisioning for a fully locked-down kiosk.
-
-Out of scope: presence detection with the device's own camera (Home
-Assistant motion sensors cover it without camera access), and a fleet
-management server (REST and MQTT already give remote control, and releases
-ship through GitHub).
-
 ## Repository layout
 
 ```text
 android/   Android app (Kotlin)
-docs/      Specification, hardware notes
+docs/      REST, MQTT and bridge reference, hardware notes, guides
 site/      Project website (GitHub Pages)
 .github/   CI, Pages deployment, issue templates
 ```

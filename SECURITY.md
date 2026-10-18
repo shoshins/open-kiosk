@@ -15,12 +15,10 @@ Please give us a reasonable time to release a fix before disclosing publicly.
 
 ## Supported versions
 
-Until v1.0, only the latest release receives security fixes.
+Only the latest release receives security fixes.
 
-## Scope
+## What to report
 
-In scope: the Android app, the JavaScript bridge, the REST and MQTT
-interfaces, the update pipeline and the self-hosted manager.
-
-Out of scope: vulnerabilities in Android System WebView itself (report them
-to the Chromium project), and devices whose firmware is already compromised.
+Anything in the Android app, the JavaScript bridge, the REST and MQTT
+interfaces, or the release pipeline. Issues in Android System WebView itself
+belong with the Chromium project.

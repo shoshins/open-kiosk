@@ -11,9 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 /**
- * First-run setup: asks for the dashboard URL. Changing it later will sit
- * behind the PIN-protected settings screen (KSK-006); until then, clear the
- * app's data to return here.
+ * First-run setup: asks for the dashboard URL. Later changes go through the
+ * PIN-protected settings screen.
  */
 class SetupActivity : Activity() {
 
