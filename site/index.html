@@ -13,6 +13,9 @@
   <meta property="og:description" content="Run Home Assistant or any web dashboard full screen on an Android panel. Free, open source, security- and performance-first.">
   <meta property="og:url" content="https://open-kiosk.shoshins.com/">
   <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/webp" href="icons/icon.webp">
+  <link rel="apple-touch-icon" href="icons/icon.webp">
+  <meta property="og:image" content="https://open-kiosk.shoshins.com/icons/icon.webp">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
   {
@@ -24,21 +27,25 @@
     "description": "Free, open-source kiosk browser for Android wall panels and smart-home dashboards.",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "url": "https://open-kiosk.shoshins.com/"
+    "url": "https://open-kiosk.shoshins.com/",
+    "image": "https://open-kiosk.shoshins.com/icons/icon.webp"
   }
   </script>
 </head>
 <body>
+  <div class="nav-wrap">
   <header class="nav">
-    <a class="logo" href="#top" aria-label="Open Kiosk home"><span class="logo-mark" aria-hidden="true"></span>Open Kiosk</a>
+    <a class="logo" href="#top" aria-label="Open Kiosk home"><img class="logo-mark" src="icons/icon.webp" alt="" width="28" height="28">Open Kiosk</a>
     <nav aria-label="Sections">
       <a href="#features">Features</a>
+      <a href="#use-case">Use case</a>
       <a href="#security">Security</a>
       <a href="#start">Get started</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="https://github.com/shoshins/open-kiosk">GitHub</a>
     </nav>
   </header>
+  </div>
 
   <main id="top">
     <section class="hero">
@@ -51,14 +58,14 @@
         <a class="button primary" href="https://github.com/shoshins/open-kiosk">View on GitHub</a>
         <a class="button" href="https://github.com/shoshins/open-kiosk/releases">Download APK</a>
       </div>
-      <p class="status">Early development: the kiosk core is implemented and in hardware validation; remote control is planned for v0.2.</p>
+      <img class="hero-banner" src="icons/about-dark.webp" alt="Open Kiosk">
     </section>
 
     <section class="stats" aria-label="At a glance">
-      <div><strong>24 KB</strong><span>release APK, excluding the system WebView</span></div>
-      <div><strong>0</strong><span>analytics SDKs and cloud accounts</span></div>
-      <div><strong>API 27</strong><span>runs on Android 8.1 and newer</span></div>
-      <div><strong>Apache 2.0</strong><span>free for homes and businesses</span></div>
+      <div><b>Fast</b><strong>24 KB</strong><span>release APK, excluding the system WebView</span></div>
+      <div><b>Clean</b><strong>0</strong><span>analytics SDKs and cloud accounts</span></div>
+      <div><b>Always free</b><strong>$0</strong><span>no license fee, no subscription, no per-device cost</span></div>
+      <div><b>Open source</b><strong>Apache 2.0</strong><span>read, change and share every line</span></div>
     </section>
 
     <section id="features" class="section">
@@ -67,36 +74,79 @@
         network drops, crashes and reboots.</p>
       <div class="cards">
         <article class="card">
-          <span class="tag done">v0.1</span>
+          <span class="tag done">Available</span>
           <h3>Fullscreen kiosk</h3>
           <p>Immersive mode hides the system bars. Your dashboard fills the screen with no browser chrome.</p>
         </article>
         <article class="card">
-          <span class="tag done">v0.1</span>
+          <span class="tag done">Available</span>
           <h3>Self-healing</h3>
           <p>Reloads when Wi-Fi returns, retries with backoff, and rebuilds the WebView if its renderer crashes.</p>
         </article>
         <article class="card">
-          <span class="tag done">v0.1</span>
+          <span class="tag done">Available</span>
           <h3>Boots into your dashboard</h3>
           <p>Starts after a reboot, or set it as the Home app so the panel never shows anything else.</p>
         </article>
         <article class="card">
-          <span class="tag">v0.2</span>
+          <span class="tag">Coming soon</span>
           <h3>REST &amp; MQTT</h3>
           <p>Reload, navigate, set brightness or speak from Home Assistant, n8n or any automation. Off by default.</p>
         </article>
         <article class="card">
-          <span class="tag">v0.3</span>
+          <span class="tag">Coming soon</span>
           <h3>Screensaver &amp; presence</h3>
           <p>Clock, black or photo screensaver that wakes on motion from Home Assistant sensors or the camera.</p>
         </article>
         <article class="card">
-          <span class="tag">v0.4</span>
+          <span class="tag">Coming soon</span>
           <h3>Fleet management</h3>
           <p>A self-hosted manager for many panels, with signed over-the-air updates. Your server, your data.</p>
         </article>
       </div>
+    </section>
+
+    <section id="use-case" class="section">
+      <h2>Your own dashboards on a multi-display wall panel</h2>
+      <p class="section-lead">A worked example on the F6 panel: a dashboard you build and host in Home Assistant,
+        a main touch screen, and a rotary knob with its own round screen.</p>
+      <div class="flow" aria-label="How the pieces connect">
+        <article class="tier ha">
+          <p class="kind">Your server</p>
+          <h3>Home Assistant</h3>
+          <ul>
+            <li>Hosts your dashboard as static files in <code>/config/www</code></li>
+            <li>Serves live states and services over its WebSocket API</li>
+            <li>Automations, cameras, climate, lights</li>
+          </ul>
+        </article>
+        <span class="flow-arrow" aria-hidden="true">&rarr;</span>
+        <article class="tier app">
+          <p class="kind">On the panel</p>
+          <h3>Open Kiosk</h3>
+          <ul>
+            <li>Loads the dashboard full screen, locked to your Home Assistant origin</li>
+            <li>Passes knob turns and presses to the page as key events</li>
+            <li>Reconnects after Wi-Fi drops and reboots</li>
+          </ul>
+        </article>
+        <span class="flow-arrow" aria-hidden="true">&rarr;</span>
+        <article class="tier device">
+          <p class="kind">F6 hardware</p>
+          <h3>Two displays, one knob</h3>
+          <div class="screens">
+            <div class="screen"><span class="badge">supported</span><strong>Main screen · 960×480</strong>Rooms, lights, climate, camera snapshots</div>
+            <div class="screen"><span class="badge">no adapter needed</span><strong>Rotary knob</strong>Turn to switch rooms, press to act</div>
+            <div class="screen"><span class="badge">coming soon</span><strong>Round screen · 240×240</strong>Clock and weather, or the selected room and its set temperature</div>
+          </div>
+        </article>
+      </div>
+      <div class="usecase-notes">
+        <div><strong>Any dashboard</strong>Plain HTML, React or Lovelace. If it runs in the panel's WebView, it runs in Open Kiosk.</div>
+        <div><strong>No extra server</strong>Home Assistant already serves the files and the live data. Nothing else to host.</div>
+        <div><strong>Hardware stays safe</strong>The round screen is reached through one typed capability for trusted origins, never a general file API.</div>
+      </div>
+      <p class="status">Step-by-step guide: <a href="https://github.com/shoshins/open-kiosk/blob/main/docs/use-cases/f6-home-assistant.md">F6 + Home Assistant</a></p>
     </section>
 
     <section id="security" class="section split">
@@ -145,7 +195,7 @@
       </details>
       <details>
         <summary>Does it work with Home Assistant?</summary>
-        <p>Yes. Any web dashboard works, including Home Assistant's own UI and custom dashboards. MQTT discovery for Home Assistant is planned for v0.2.</p>
+        <p>Yes. Any web dashboard works, including Home Assistant's own UI and custom dashboards. MQTT discovery for Home Assistant is coming soon.</p>
       </details>
       <details>
         <summary>Which devices are supported?</summary>

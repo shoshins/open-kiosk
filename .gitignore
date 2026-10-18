@@ -40,3 +40,6 @@ keystore.properties
 # IDEs and OS
 .vscode/
 .DS_Store
+
+# Copied in by the Pages workflow from icons/
+site/icons/

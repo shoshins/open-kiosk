@@ -24,6 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # The icons live at the repository root so README and the site share them.
+      - name: Add icons to the site
+        run: cp -r icons site/icons
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

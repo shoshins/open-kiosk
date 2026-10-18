@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="icons/about-dark.webp">
+    <img src="icons/about-light.webp" alt="Open Kiosk" width="640">
+  </picture>
+</p>
+
 # Open Kiosk
 
 **A free, open-source kiosk browser for Android wall panels and smart-home dashboards.**
@@ -102,6 +109,7 @@ gets **experimental** adapters, isolated from the core:
 
 - **F6 wall panel** (Rockchip PX30, 1440×720, rotary knob with round secondary
   screen): in validation. Findings are in [docs/hardware/f6.md](docs/hardware/f6.md).
+  Guide: [your own Home Assistant dashboards on the F6](docs/use-cases/f6-home-assistant.md).
 
 Tested another panel? Please add it to the compatibility list with a pull request.
 
