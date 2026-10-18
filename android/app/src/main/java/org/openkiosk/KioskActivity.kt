@@ -5,12 +5,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.window.OnBackInvokedDispatcher
 import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -47,6 +49,9 @@ class KioskActivity : Activity() {
         }
         if (settings.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         createWebView()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT) { goBackInPage() }
+        }
         getSystemService(ConnectivityManager::class.java).registerDefaultNetworkCallback(networkCallback)
     }
 
@@ -64,10 +69,17 @@ class KioskActivity : Activity() {
         super.onDestroy()
     }
 
-    // A kiosk has nowhere to go back to.
+    // A kiosk has nowhere to go back to: back only steps back within the page.
+    // Android 13+ routes back through the callback registered in onCreate;
+    // this override covers Android 8.1-12.
+    @SuppressLint("GestureBackNavigation")
     @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
+        goBackInPage()
+    }
+
+    private fun goBackInPage() {
         val view = webView
         if (view != null && view.canGoBack()) view.goBack()
     }

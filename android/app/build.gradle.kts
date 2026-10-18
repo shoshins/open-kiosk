@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace = "org.openkiosk"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = providers.gradleProperty("openkiosk.applicationId").get()
         // Android 8.1: the oldest platform the reference wall panel runs.
         minSdk = 27
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
     }
@@ -28,12 +28,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     lint {
         abortOnError = true
         warningsAsErrors = true
+        // "A newer version exists" checks change with the calendar, not the
+        // code. Report them without failing the build.
+        informational += setOf("OldTargetApi", "GradleDependency", "AndroidGradlePluginVersion", "NewerVersionAvailable")
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 

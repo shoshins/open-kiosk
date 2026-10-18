@@ -15,4 +15,6 @@ uses [Semantic Versioning](https://semver.org/).
   exponential backoff, rebuild the WebView after a renderer crash.
 - Start on boot (Android 8.1–9) and optional Home app role.
 - Keep screen awake.
+- Back gestures on Android 13+ go through `OnBackInvokedDispatcher`.
+- Targets Android 16 (API 36), as Google Play requires from 31 August 2026.
 - F6 wall panel hardware notes.
