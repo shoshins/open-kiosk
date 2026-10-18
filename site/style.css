@@ -50,7 +50,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .9em; 
 .nav nav { display: flex; align-items: center; gap: 22px; }
 .nav nav a { color: var(--muted); font-size: 15px; }
 .nav nav a:hover { color: var(--text); text-decoration: none; }
-.nav .nav-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--text); padding: 6px 14px; border: 1px solid var(--line); border-radius: 18px; }
+.nav .nav-cta { display: inline-flex; align-items: center; color: var(--text); padding: 6px 14px; border: 1px solid var(--line); border-radius: 18px; }
 
 /* Hero */
 .hero { max-width: var(--max); margin: 0 auto; padding: 88px 24px 48px; text-align: center; }
@@ -60,7 +60,7 @@ h1 span { color: var(--primary); }
 .lead { max-width: 680px; margin: 24px auto 0; color: #bdbdbd; font-size: clamp(17px, 2vw, 20px); }
 .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .button {
-  display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 4px;
+  display: inline-flex; align-items: center; padding: 11px 22px; border-radius: 4px;
   border: 1px solid var(--line); background: var(--card);
   color: var(--primary); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; font-size: 14px;
   transition: background-color .15s ease;
@@ -68,7 +68,8 @@ h1 span { color: var(--primary); }
 .button:hover { text-decoration: none; background: var(--card-2); }
 .button.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
 .button.primary:hover { background: #0398dc; }
-.gh-icon { width: 18px; height: 18px; flex: 0 0 18px; object-fit: contain; }
+.gh-icon { width: 18px; height: 18px; flex: 0 0 18px; margin-right: 12px; object-fit: contain; }
+.nav .gh-icon { margin-right: 10px; }
 .status { margin-top: 20px; color: var(--muted); font-size: 14px; }
 .hero-banner { display: block; width: 100%; max-width: 960px; height: auto; margin: 48px auto 0; border-radius: var(--radius); border: 1px solid var(--line); }
 
