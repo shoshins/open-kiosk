@@ -5,4 +5,66 @@
     <string name="setup_hint">http://homeassistant.local:8123/</string>
     <string name="setup_save">Start kiosk</string>
     <string name="setup_invalid">Enter a full http:// or https:// address</string>
+
+    <string name="settings_title">Open Kiosk settings</string>
+    <string name="settings_save">Save and restart kiosk</string>
+
+    <string name="pin_create_title">Choose a settings PIN</string>
+    <string name="pin_new">New PIN (4–12 digits)</string>
+    <string name="pin_repeat">Repeat the PIN</string>
+    <string name="pin_save">Save PIN</string>
+    <string name="pin_enter">PIN</string>
+    <string name="pin_unlock">Unlock</string>
+    <string name="pin_rules">The PIN must be 4 to 12 digits</string>
+    <string name="pin_mismatch">The PINs do not match</string>
+    <string name="pin_wrong">Wrong PIN</string>
+    <string name="pin_locked">Too many attempts. Try again in %1$d s</string>
+    <string name="pin_change">Change PIN</string>
+
+    <string name="section_dashboard">Dashboard</string>
+    <string name="start_url">Start URL</string>
+    <string name="keep_screen_on">Keep the screen on</string>
+
+    <string name="section_screensaver">Screensaver</string>
+    <string name="saver_mode">Mode (off, black, clock, dim, url)</string>
+    <string name="saver_timeout">Start after this many idle minutes (0 = only on command)</string>
+    <string name="saver_dim">Brightness while dimmed, %</string>
+    <string name="saver_url">Screensaver URL (same origin as the dashboard)</string>
+
+    <string name="section_rest">REST API</string>
+    <string name="rest_enable">Enable the REST API</string>
+    <string name="rest_lan">Allow access from the network (otherwise this device only)</string>
+    <string name="rest_port">Port</string>
+    <string name="rest_new_token">Generate a new API token</string>
+    <string name="rest_token_title">New API token</string>
+    <string name="rest_token_message">Copy it now; it will not be shown again. Any previous token stops working.\n\n%1$s</string>
+
+    <string name="section_mqtt">MQTT</string>
+    <string name="mqtt_enable">Enable MQTT</string>
+    <string name="mqtt_host">Broker host</string>
+    <string name="mqtt_port">Port</string>
+    <string name="mqtt_tls">Use TLS</string>
+    <string name="mqtt_username">Username</string>
+    <string name="mqtt_password">Password</string>
+    <string name="mqtt_password_hint">Leave empty to keep the saved password</string>
+    <string name="mqtt_discovery">Home Assistant discovery</string>
+
+    <string name="section_bridge">JavaScript bridge</string>
+    <string name="bridge_enable">Let the dashboard use window.openKiosk</string>
+    <string name="secondary_enable">Allow drawing on the secondary screen</string>
+
+    <string name="section_apps">App launcher</string>
+    <string name="launch_allowlist">Packages that may be launched, one per line</string>
+
+    <string name="section_security">Security</string>
+    <string name="open_android_settings">Open Android settings</string>
+    <string name="section_device">Device</string>
+
+    <string name="invalid_timeout">The idle timeout must be 0 to 1440 minutes</string>
+    <string name="invalid_dim">The dim brightness must be 0 to 100</string>
+    <string name="invalid_saver_url">The screensaver URL must be on the dashboard\'s origin</string>
+    <string name="invalid_rest_port">The REST port must be 1024 to 65535</string>
+    <string name="invalid_mqtt_host">Enter the MQTT broker host</string>
+    <string name="invalid_mqtt_port">The MQTT port must be 1 to 65535</string>
+    <string name="invalid_packages">One of the package names is not valid</string>
 </resources>

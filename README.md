@@ -15,10 +15,9 @@ Open Kiosk turns an Android device into a single-purpose, always-on display for
 Home Assistant or any web dashboard. No paid unlock, no cloud account, no
 analytics, and no root.
 
-> **Status: early development (v0.1 in progress).** The fullscreen kiosk core
-> is implemented and unit-tested; validation on real hardware (KSK-010) is
-> next. Remote control, screensaver and the rest of the roadmap below are
-> planned, not shipped. Feedback and contributions are very welcome.
+> **Status: early development.** Everything marked ✅ below is implemented
+> and unit-tested; validation on real hardware (KSK-010) is in progress.
+> Feedback and contributions are very welcome.
 
 ---
 
@@ -38,22 +37,25 @@ door. Open Kiosk is built around two priorities:
 
 | | Feature | Status |
 |---|---|---|
-| 🖥 | Fullscreen, immersive WebView with your start URL | ✅ v0.1 |
-| 🔒 | Navigation locked to the dashboard's origin | ✅ v0.1 |
-| ♻️ | Auto-recovery: network return, load retries with backoff, renderer crash rebuild | ✅ v0.1 |
-| ⚡ | Starts on boot (Android 8.1–9) or as the Home app | ✅ v0.1 |
-| ☀️ | Keep screen awake | ✅ v0.1 |
-| 🔑 | PIN-protected settings | 🛠 v0.1 |
-| 📊 | Health and basic telemetry | 🛠 v0.1 |
-| 🌐 | Authenticated local REST API (off by default) | 📋 v0.2 |
-| 📡 | MQTT with Home Assistant discovery | 📋 v0.2 |
-| 🧩 | Origin-checked, capability-limited JavaScript bridge | 📋 v0.2 |
-| 🗣 | Text-to-speech | 📋 v0.2 |
-| 🌙 | Screensaver: clock, black, URL, photos, dimming | 📋 v0.3 |
-| 👋 | Presence: HA sensors or on-device camera motion | 📋 v0.3 |
-| 🗂 | Self-hosted fleet manager and signed OTA updates | 📋 v0.4 |
+| 🖥 | Fullscreen, immersive WebView with your start URL | ✅ |
+| 🔒 | Navigation locked to the dashboard's origin | ✅ |
+| ♻️ | Auto-recovery: network return, load retries with backoff, renderer crash rebuild | ✅ |
+| ⚡ | Starts on boot (Android 8.1–9) or as the Home app | ✅ |
+| 🔑 | PIN-protected settings with brute-force throttling | ✅ |
+| ☀️ | Brightness and keep-awake | ✅ |
+| 🌐 | Authenticated local [REST API](docs/api.md), off by default | ✅ |
+| 📡 | [MQTT](docs/mqtt.md) with Home Assistant discovery | ✅ |
+| 🧩 | Origin-checked [JavaScript bridge](docs/bridge.md), off by default | ✅ |
+| 🌙 | Screensaver: clock, black, dim or URL, on idle or on command | ✅ |
+| 👋 | Wake from Home Assistant motion sensors over MQTT or REST | ✅ |
+| 🗣 | Text-to-speech | ✅ |
+| 🚀 | Allowlisted app launcher | ✅ |
+| 🟠 | F6 round secondary screen | ✅ |
+| 📊 | Telemetry: memory, storage, network, battery, uptime | ✅ |
+| 📷 | Presence from the device's own camera | 📋 |
+| 🗂 | Self-hosted fleet manager and signed OTA updates | 📋 |
 
-✅ implemented · 🛠 in progress · 📋 planned. See the [full specification](docs/spec.md).
+✅ implemented · 📋 planned. See the [full specification](docs/spec.md).
 
 ## Quick start
 
@@ -76,8 +78,8 @@ Open **Open Kiosk** on the device, enter your dashboard URL (for example
 `http://homeassistant.local:8123/`), and it takes over the screen. To start it
 automatically, choose Open Kiosk when Android asks for the Home app.
 
-Until the PIN-protected settings screen lands, change the URL by clearing the
-app's data: `adb shell pm clear io.github.shoshins.openkiosk`.
+**Settings:** tap the top-left corner five times within three seconds. The
+first time, you choose a PIN; after that, the PIN is required.
 
 ## Security model
 
@@ -85,9 +87,12 @@ app's data: `adb shell pm clear io.github.shoshins.openkiosk`.
   Links elsewhere are ignored, and `file:`, `intent:` and `javascript:` URLs are
   refused.
 - **No file or content access** from web pages, and no mixed content.
-- **No privileged bridge by default.** The planned JavaScript bridge is opt-in,
-  bound to trusted origins, and exposes typed capabilities only: no shell, no
-  arbitrary intents, no filesystem.
+- **No privileged bridge by default.** The JavaScript bridge is opt-in,
+  answers only the dashboard's origin, and exposes typed capabilities only:
+  no shell, no arbitrary intents, no filesystem.
+- **Settings behind a PIN**, stored as a salted PBKDF2 hash, with growing
+  lockouts after wrong guesses. API tokens are stored only as hashes; the
+  MQTT password is encrypted with an Android Keystore key.
 - **Remote APIs are off by default**, token-authenticated with scopes, and
   bound to loopback unless you choose otherwise.
 - **No telemetry leaves the device.** No analytics SDKs.
@@ -102,8 +107,8 @@ opening a public issue.
 - Framework-only Android: no AndroidX, no Compose, no reflection-heavy
   libraries. Release builds are shrunk with R8.
 - One WebView, created once and rebuilt only after a renderer crash.
-- Native code only where measurements justify it, for example network
-  parsers in v0.2.
+- REST and MQTT are implemented directly on sockets: no HTTP or MQTT
+  libraries, hard limits on every input.
 
 Targets for the reference device are in [the spec](docs/spec.md#6-non-functional-requirements):
 APK under 15 MB, cold start under 5 seconds, 72-hour unattended soak.

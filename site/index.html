@@ -62,7 +62,7 @@
     </section>
 
     <section class="stats" aria-label="At a glance">
-      <div><b>Fast</b><strong>24 KB</strong><span>release APK, excluding the system WebView</span></div>
+      <div><b>Fast</b><strong>75 KB</strong><span>release APK, excluding the system WebView</span></div>
       <div><b>Clean</b><strong>0</strong><span>analytics SDKs and cloud accounts</span></div>
       <div><b>Always free</b><strong>$0</strong><span>no license fee, no subscription, no per-device cost</span></div>
       <div><b>Open source</b><strong>Apache 2.0</strong><span>read, change and share every line</span></div>
@@ -74,34 +74,28 @@
         network drops, crashes and reboots.</p>
       <div class="cards">
         <article class="card">
-          <span class="tag done">Available</span>
           <h3>Fullscreen kiosk</h3>
           <p>Immersive mode hides the system bars. Your dashboard fills the screen with no browser chrome.</p>
         </article>
         <article class="card">
-          <span class="tag done">Available</span>
           <h3>Self-healing</h3>
           <p>Reloads when Wi-Fi returns, retries with backoff, and rebuilds the WebView if its renderer crashes.</p>
         </article>
         <article class="card">
-          <span class="tag done">Available</span>
           <h3>Boots into your dashboard</h3>
           <p>Starts after a reboot, or set it as the Home app so the panel never shows anything else.</p>
         </article>
         <article class="card">
-          <span class="tag">Coming soon</span>
           <h3>REST &amp; MQTT</h3>
-          <p>Reload, navigate, set brightness or speak from Home Assistant, n8n or any automation. Off by default.</p>
+          <p>Reload, navigate, set brightness or speak from Home Assistant, n8n or any automation. Appears in Home Assistant by MQTT discovery. Off by default.</p>
         </article>
         <article class="card">
-          <span class="tag">Coming soon</span>
           <h3>Screensaver &amp; presence</h3>
-          <p>Clock, black or photo screensaver that wakes on motion from Home Assistant sensors or the camera.</p>
+          <p>Clock, black, dimmed or web-page screensaver. Wakes on touch or when a Home Assistant motion sensor fires.</p>
         </article>
         <article class="card">
-          <span class="tag">Coming soon</span>
-          <h3>Fleet management</h3>
-          <p>A self-hosted manager for many panels, with signed over-the-air updates. Your server, your data.</p>
+          <h3>Hardware bridge</h3>
+          <p>Dashboards can speak, launch allowlisted apps and draw on second screens, like the F6's round display, through an opt-in, origin-checked bridge.</p>
         </article>
       </div>
     </section>
@@ -137,7 +131,7 @@
           <div class="screens">
             <div class="screen"><span class="badge">supported</span><strong>Main screen · 960×480</strong>Rooms, lights, climate, camera snapshots</div>
             <div class="screen"><span class="badge">no adapter needed</span><strong>Rotary knob</strong>Turn to switch rooms, press to act</div>
-            <div class="screen"><span class="badge">coming soon</span><strong>Round screen · 240×240</strong>Clock and weather, or the selected room and its set temperature</div>
+            <div class="screen"><span class="badge">supported</span><strong>Round screen · 240×240</strong>Clock and weather, or the selected room and its set temperature</div>
           </div>
         </article>
       </div>
@@ -159,7 +153,8 @@
         <li><strong>Origin lock.</strong> Only your dashboard's address can load. Links elsewhere are ignored.</li>
         <li><strong>No file access</strong> from web pages, no mixed content, no <code>intent:</code> or <code>javascript:</code> URLs.</li>
         <li><strong>No open bridge.</strong> Native capabilities are opt-in, typed and origin-checked. No shell, no filesystem.</li>
-        <li><strong>Remote APIs off by default</strong>, token-authenticated with scopes, loopback-only unless you choose otherwise.</li>
+        <li><strong>Remote APIs off by default</strong>, token-authenticated, loopback-only unless you choose otherwise.</li>
+        <li><strong>Settings behind a PIN</strong> with growing lockouts after wrong guesses. Secrets are hashed or encrypted with the Android Keystore.</li>
         <li><strong>Nothing phones home.</strong> No analytics, no vendor cloud, no account.</li>
       </ul>
     </section>
@@ -195,7 +190,7 @@
       </details>
       <details>
         <summary>Does it work with Home Assistant?</summary>
-        <p>Yes. Any web dashboard works, including Home Assistant's own UI and custom dashboards. MQTT discovery for Home Assistant is coming soon.</p>
+        <p>Yes. Any web dashboard works, including Home Assistant's own UI and custom dashboards. With MQTT enabled, the panel appears in Home Assistant automatically as a device with buttons, a brightness slider and sensors.</p>
       </details>
       <details>
         <summary>Which devices are supported?</summary>

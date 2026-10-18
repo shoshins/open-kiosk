@@ -23,9 +23,9 @@ panel's rotary knob driving it. It is based on a real installation.
 
 | Part | What it shows | Status |
 |---|---|---|
-| Main touch screen, 960×480 CSS px | Rooms, lights, climate, camera snapshots | Works with Open Kiosk v0.1 |
+| Main touch screen, 960×480 CSS px | Rooms, lights, climate, camera snapshots | Supported |
 | Rotary knob | Turn to switch rooms, press to act | No adapter needed: keys reach the page |
-| Round screen, 240×240 | Clock and weather, or the selected room and its set temperature | Needs the F6 hardware adapter (KSK-032) |
+| Round screen, 240×240 | Clock and weather, or the selected room and its set temperature | Supported, through the JavaScript bridge |
 
 There is no extra server: Home Assistant already hosts the files and the
 data.
@@ -111,26 +111,42 @@ window.addEventListener('keydown', (event) => {
 Sign in to Home Assistant once on the panel. The session persists in the
 WebView's storage across reboots.
 
-## 5. The round screen (planned)
+## 5. Draw on the round screen
 
 The round screen is a separate 240×240 framebuffer, not an Android display
-(details in [the hardware notes](../hardware/f6.md)). Open Kiosk will expose
-it to trusted origins as one typed capability, planned under KSK-032:
+(details in [the hardware notes](../hardware/f6.md)). Open Kiosk reaches it
+through the [JavaScript bridge](../bridge.md):
+
+1. In settings (five taps top-left, then the PIN), under **JavaScript
+   bridge**, tick both **Let the dashboard use window.openKiosk** and
+   **Allow drawing on the secondary screen**.
+2. Draw on a 240×240 canvas and hand it over:
 
 ```js
-// Planned API. The names may change before release.
-if (window.openKiosk?.secondaryScreen) {
+function whenKioskReady(callback) {
+  if (window.openKiosk) callback(window.openKiosk);
+  else window.addEventListener('openkioskready', () => callback(window.openKiosk), { once: true });
+}
+
+whenKioskReady((kiosk) => {
+  if (!kiosk.capabilities().secondaryScreen) return;
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = 240;
   drawClock(canvas.getContext('2d'));
-  openKiosk.secondaryScreen.draw(canvas);   // the app handles pixel format and mirroring
-  openKiosk.secondaryScreen.backlight(true);
-}
+  kiosk.secondaryScreen.draw(canvas);   // pixel format and mirroring are handled
+  kiosk.secondaryScreen.backlight(true);
+});
 ```
 
 Typical content: the time and outdoor weather on the overview, and the
-selected room's name and set temperature while a room is selected. Render
-only when the content changes; each frame is about 115 KB.
+selected room's name and set temperature while a room is selected. Draw
+only when the content changes; each frame is about 115 KB on the wire.
+
+## 6. Control the panel from Home Assistant
+
+Enable [MQTT](../mqtt.md) in settings and the panel appears in Home
+Assistant as a device: wake it when a motion sensor fires, dim it at night,
+or have it speak when the doorbell rings.
 
 ## Troubleshooting
 
