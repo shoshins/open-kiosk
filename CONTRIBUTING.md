@@ -32,6 +32,8 @@ Install on a device with `adb install app/build/outputs/apk/debug/app-debug.apk`
 The website lives in `site/` and is plain HTML and CSS; open
 `site/index.html` in a browser to preview it.
 
+Maintainers: see [RELEASING.md](RELEASING.md) for signing and publishing.
+
 ## Pull requests
 
 1. Open an issue first for anything larger than a bug fix.

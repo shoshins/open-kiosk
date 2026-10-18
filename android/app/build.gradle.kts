@@ -12,14 +12,31 @@ android {
         // Android 8.1: the oldest platform the reference wall panel runs.
         minSdk = 27
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        // Release builds set these from the git tag; see .github/workflows/release.yml.
+        versionCode = providers.gradleProperty("openkiosk.versionCode").getOrElse("1").toInt()
+        versionName = providers.gradleProperty("openkiosk.versionName").getOrElse("0.1.0")
+    }
+
+    // The signing key never lives in the repository. CI passes it in through
+    // environment variables backed by GitHub Actions secrets; without them a
+    // release build is produced unsigned.
+    val keystorePath = System.getenv("OPEN_KIOSK_KEYSTORE")
+    signingConfigs {
+        if (keystorePath != null) {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = System.getenv("OPEN_KIOSK_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("OPEN_KIOSK_KEY_ALIAS")
+                keyPassword = System.getenv("OPEN_KIOSK_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.findByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }

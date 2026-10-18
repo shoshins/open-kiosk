@@ -59,6 +59,12 @@ door. Open Kiosk is built around two priorities:
 
 Requirements: Android 8.1 (API 27) or newer with Android System WebView.
 
+**Download:** [latest signed APK](https://github.com/shoshins/open-kiosk/releases/latest/download/open-kiosk.apk)
+([all releases](https://github.com/shoshins/open-kiosk/releases)), then
+`adb install open-kiosk.apk`.
+
+Or build it yourself:
+
 ```bash
 git clone https://github.com/shoshins/open-kiosk.git
 cd open-kiosk/android
