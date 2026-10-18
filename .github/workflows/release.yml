@@ -55,7 +55,7 @@ jobs:
           fi
           echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
 
-      - name: Test and build the signed APK
+      - name: Test and build the signed APK and App Bundle
         working-directory: android
         env:
           OPEN_KIOSK_KEYSTORE: ${{ runner.temp }}/release.jks
@@ -63,7 +63,7 @@ jobs:
           OPEN_KIOSK_KEY_ALIAS: ${{ secrets.OPEN_KIOSK_KEY_ALIAS }}
           OPEN_KIOSK_KEY_PASSWORD: ${{ secrets.OPEN_KIOSK_KEY_PASSWORD }}
         run: >-
-          ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
+          ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleRelease :app:bundleRelease
           -Popenkiosk.versionName=${{ steps.version.outputs.name }}
           -Popenkiosk.versionCode=${{ steps.version.outputs.code }}
 
@@ -76,7 +76,11 @@ jobs:
           cp "$apk" "dist/open-kiosk-${{ steps.version.outputs.name }}.apk"
           # A fixed name gives a permanent "latest" download link.
           cp "$apk" dist/open-kiosk.apk
-          (cd dist && sha256sum *.apk > SHA256SUMS)
+          # The App Bundle is what Google Play takes.
+          aab=android/app/build/outputs/bundle/release/app-release.aab
+          jarsigner -verify "$aab" > /dev/null
+          cp "$aab" "dist/open-kiosk-${{ steps.version.outputs.name }}.aab"
+          (cd dist && sha256sum *.apk *.aab > SHA256SUMS)
 
       - name: Remove the signing key
         if: always()

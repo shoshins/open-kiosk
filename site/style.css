@@ -139,6 +139,14 @@ details:first-of-type { margin-top: 30px; }
 summary { cursor: pointer; font-weight: 500; font-size: 17px; }
 details p { margin: 10px 0 0; color: var(--muted); }
 
+/* Legal pages */
+.legal { max-width: 760px; padding-top: 56px; }
+.legal h1 { margin: 0; font-size: clamp(32px, 5vw, 44px); font-weight: 500; letter-spacing: -.015em; }
+.legal h2 { margin-top: 40px; font-size: 22px; }
+.legal p, .legal li { color: #bdbdbd; }
+.legal li + li { margin-top: 6px; }
+.legal strong { color: var(--text); font-weight: 500; }
+
 /* Footer */
 .footer { max-width: var(--max); margin: 88px auto 0; padding: 28px 24px 44px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
 .footer p { margin: 4px 0; }

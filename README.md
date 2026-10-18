@@ -128,6 +128,10 @@ site/      Project website (GitHub Pages)
 Pull requests are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md), and
 please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Privacy
+
+Open Kiosk collects no personal data. See the [privacy policy](https://open-kiosk.shoshins.com/privacy.html).
+
 ## License
 
 [Apache License 2.0](LICENSE). Open Kiosk is an independent project and is not
