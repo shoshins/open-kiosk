@@ -1,9 +1,17 @@
 name: Release
 
-# Push a tag such as v0.1.0 to build, sign and publish the APK.
+# Builds, signs and attaches the APK to the release for a version tag.
+# Works whether the release was created first in the GitHub UI (the usual
+# way: tag and release together) or only a tag was pushed. Run it by hand
+# with a tag to rebuild the assets of an existing release.
 on:
   push:
     tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to build, for example v1.0.0"
+        required: true
 
 permissions:
   contents: write
@@ -11,8 +19,12 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
       - uses: gradle/actions/wrapper-validation@v4
       - uses: actions/setup-java@v4
         with:
@@ -23,7 +35,12 @@ jobs:
       - name: Derive the version from the tag
         id: version
         run: |
-          name="${GITHUB_REF_NAME#v}"
+          # The tag can come from a manual input, so check its shape before use.
+          if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$TAG' is not a version tag such as v1.0.0"
+            exit 1
+          fi
+          name="${TAG#v}"
           IFS=. read -r major minor patch <<< "${name%%-*}"
           echo "name=$name" >> "$GITHUB_OUTPUT"
           echo "code=$(( major * 10000 + minor * 100 + patch ))" >> "$GITHUB_OUTPUT"
@@ -65,10 +82,14 @@ jobs:
         if: always()
         run: rm -f "$RUNNER_TEMP/release.jks"
 
-      - name: Publish the GitHub release
+      - name: Attach the assets to the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >-
-          gh release create "$GITHUB_REF_NAME" dist/*
-          --title "Open Kiosk ${{ steps.version.outputs.name }}"
-          --generate-notes
+          GH_REPO: ${{ github.repository }}
+          TITLE: Open Kiosk ${{ steps.version.outputs.name }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --title "$TITLE" --generate-notes
+          fi

@@ -39,15 +39,22 @@ the upload key; Google holds the app signing key.
 ## Cutting a release
 
 1. Update `CHANGELOG.md`: move the `Unreleased` items under the new version.
-2. Tag and push:
+2. Either create the release in GitHub (**Releases → Draft a new release**,
+   new tag such as `v1.0.0`, **Publish**), or push just a tag:
 
    ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
+   git tag v1.0.0
+   git push origin v1.0.0
    ```
 
-The workflow derives `versionName` from the tag (`0.1.0`) and `versionCode`
-as `major × 10000 + minor × 100 + patch` (`100`), so versions must only go
+Either way the **Release** workflow builds, signs and attaches the APK. If
+the release already exists it adds the files to it; otherwise it creates it.
+
+To rebuild the files of an existing release, run the workflow by hand:
+**Actions → Release → Run workflow**, with the tag (for example `v1.0.0`).
+
+The workflow derives `versionName` from the tag (`1.0.0`) and `versionCode`
+as `major × 10000 + minor × 100 + patch` (`10000` for `1.0.0`), so versions must only go
 up. Each release carries a versioned APK, a fixed-name `open-kiosk.apk`, and
 `SHA256SUMS`.
 
